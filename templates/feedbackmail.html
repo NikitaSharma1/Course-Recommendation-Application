@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feedback Mail</title>
+    <!-- Link Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        margin: 20px;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #007bff;
+      }
+
+      table {
+        width: 100%;
+        margin-bottom: 20px;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        padding: 12px;
+        border: 1px solid #dee2e6;
+        text-align: left;
+      }
+
+      th {
+        background-color: #007bff;
+        color: #fff;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+
+      tr:hover {
+        background-color: #cce5ff;
+      }
+
+      tbody td {
+        color: #495057;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>Feedback Mail</h1>
+      <table class="table table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th>f_id</th>
+            <th>roll_no</th>
+            <th>course_id</th>
+            <th>teacher</th>
+            <th>assignment</th>
+            <th>exams</th>
+            <th>content</th>
+            <th>toughness</th>
+            <th>overall</th>
+            <th>grade</th>
+            <th>feedback</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for feedback_item in feedback %}
+          <tr>
+            <td>{{ feedback_item.f_id }}</td>
+            <td>{{ feedback_item.roll_no }}</td>
+            <td>{{ feedback_item.course_id }}</td>
+            <td>{{ feedback_item.teacher }}</td>
+            <td>{{ feedback_item.assignment }}</td>
+            <td>{{ feedback_item.exams }}</td>
+            <td>{{ feedback_item.content }}</td>
+            <td>{{ feedback_item.toughness }}</td>
+            <td>{{ feedback_item.overall }}</td>
+            <td>{{ feedback_item.grade }}</td>
+            <td>{{ feedback_item.feedback }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Link Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

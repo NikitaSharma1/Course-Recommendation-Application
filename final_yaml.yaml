@@ -1,0 +1,3335 @@
+openapi: 3.0.0
+info:
+  title: COURSE RECOMMENDATION APP
+  description: >
+    <div><h4>The Course Recommendation system is designed to offer students a personalized educational journey by integrating insights from enrollment data and individual input. It comprises key components such as Admin, Enrollment, Student, Feedback, and Recommendation tables. Admins utilize historical data, while students contribute learning profiles, interests, and feedback, resulting in a system that crafts tailored educational paths, accounting for performance, peer experiences, and practical considerations.</h4>
+    </div>
+
+    
+
+    <h3>RolesUsers Table Schema</h3>
+    <table>
+        <thead>
+            <th>Column Name</th>
+            <th>Column Type</th>
+            <th>Constraints</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>id</td>
+                <td>Integer</td>
+                <td>Primary Key, Auto Increment</td>
+            </tr>
+            <tr>
+                <td>user_id</td>
+                <td>Integer</td>
+                <td>Foreign Key (user.id)</td>
+            </tr>
+            <tr>
+                <td>role_id</td>
+                <td>Integer</td>
+                <td>Foreign Key (role.id)</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <h3>Role Table Schema</h3>
+    <table>
+        <thead>
+            <th>Column Name</th>
+            <th>Column Type</th>
+            <th>Constraints</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>id</td>
+                <td>Integer</td>
+                <td>Primary Key, Auto Increment</td>
+            </tr>
+            <tr>
+                <td>name</td>
+                <td>String(80)</td>
+                <td>Unique</td>
+            </tr>
+            <tr>
+                <td>description</td>
+                <td>String(255)</td>
+                <td>Nil</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <h3>User Table Schema</h3>
+    <table>
+        <thead>
+            <th>Column Name</th>
+            <th>Column Type</th>
+            <th>Constraints</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>id</td>
+                <td>Integer</td>
+                <td>Primary Key, Auto Increment</td>
+            </tr>
+            <tr>
+                <td>username</td>
+                <td>String</td>
+                <td>Unique, Not Null</td>
+            </tr>
+            <tr>
+                <td>email</td>
+                <td>String</td>
+                <td>Unique, Not Null</td>
+            </tr>
+            <tr>
+                <td>password</td>
+                <td>String</td>
+                <td>Not Null</td>
+            </tr>
+            <tr>
+                <td>lastlogin</td>
+                <td>DateTime</td>
+                <td>Default: Current UTC Date</td>
+            </tr>
+            <tr>
+                <td>active</td>
+                <td>Boolean</td>
+                <td>Default: True</td>
+            </tr>
+            <tr>
+                <td>fs_uniquifier</td>
+                <td>String(256)</td>
+                <td>Unique</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <h3>StudentDetails Table Schema</h3>
+    <table>
+        <thead>
+            <th>Column Name</th>
+            <th>Column Type</th>
+            <th>Constraints</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>sd_id</td>
+                <td>Integer</td>
+                <td>Primary Key, Auto Increment</td>
+            </tr>
+            <tr>
+                <td>user_id</td>
+                <td>Integer</td>
+                <td>Foreign Key (user.id), Not Null</td>
+            </tr>
+            <tr>
+                <td>roll_no</td>
+                <td>String</td>
+                <td>Unique, Not Null</td>
+            </tr>
+            <tr>
+                <td>current_status</td>
+                <td>String</td>
+                <td>Nil</td>
+            </tr>
+            <tr>
+                <td>select_your_course</td>
+                <td>String</td>
+                <td>Nil</td>
+            </tr>
+            <tr>
+                <td>commit_per_week</td>
+                <td>Integer</td>
+                <td>Nil</td>
+            </tr>
+            <tr>
+                <td>budget_per_term</td>
+                <td>Integer</td>
+                <td>Nil</td>
+            </tr>
+            <tr>
+                <td>CGPA</td>
+                <td>Integer</td>
+                <td>Nil</td>
+            </tr>
+            <tr>
+                <td>interest</td>
+                <td>String</td>
+                <td>Nil</td>
+            </tr>
+            <tr>
+                <td>about</td>
+                <td>String(255)</td>
+                <td>Not Null</td>
+            </tr>
+            <tr>
+                <td>dob</td>
+                <td>Date</td>
+                <td>Default: Current UTC Date</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <h3>Courses Table Schema</h3>
+    <table>
+        <thead>
+            <th>Column Name</th>
+            <th>Column Type</th>
+            <th>Constraints</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>course_id</td>
+                <td>Integer</td>
+                <td>Primary Key, Auto Increment</td>
+            </tr>
+            <tr>
+                <td>course_name</td>
+                <td>String(80)</td>
+                <td>Unique, Not Null</td>
+            </tr>
+            <tr>
+                <td>level</td>
+                <td>String(80)</td>
+                <td>Not Null</td>
+            </tr>
+            <tr>
+                <td>enrolled_this_term</td>
+                <td>Integer</td>
+                <td>Nil</td>
+            </tr>
+            <tr>
+                <td>enrolled_so_far</td>
+                <td>Integer</td>
+                <td>Nil</td>
+            </tr>
+            <tr>
+                <td>course_credit</td>
+                <td>Integer</td>
+                <td>Not Null</td>
+            </tr>
+            <tr>
+                <td>course_description</td>
+                <td>String(255)</td>
+                <td>Not Null</td>
+            </tr>
+            <tr>
+                <td>teacher</td>
+                <td>String(80)</td>
+                <td>Not Null</td>
+            </tr>
+            <tr>
+                <td>pre_req1</td>
+                <td>String(80)</td>
+                <td>Not Null</td>
+            </tr>
+            <tr>
+                <td>pre_req2</td>
+                <td>String(80)</td>
+                <td>Not Null</td>
+            </tr>
+            <tr>
+                <td>fees</td>
+                <td>Integer</td>
+                <td>Not Null</td>
+            </tr>
+            <tr>
+                <td>toughness</td>
+                <td>Integer</td>
+                <td>Nil</td>
+            </tr>
+            <tr>
+                <td>avg_marks</td>
+                <td>Integer</td>
+                <td>Nil</td>
+            </tr>
+            <tr>
+                <td>success_rate</td>
+                <td>Integer</td>
+                <td>Nil</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <h3>Term Table Schema</h3>
+    <table>
+        <thead>
+            <th>Column Name</th>
+            <th>Column Type</th>
+            <th>Constraints</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>t_id</td>
+                <td>Integer</td>
+                <td>Primary Key, Auto Increment</td>
+            </tr>
+            <tr>
+                <td>term</td>
+                <td>String</td>
+                <td>Not Null</td>
+            </tr>
+            <tr>
+                <td>start_date</td>
+                <td>DateTime</td>
+                <td>Default: Current UTC Date</td>
+            </tr>
+            <tr>
+                <td>end_date</td>
+                <td>DateTime</td>
+                <td>Default: Current UTC Date</td>
+            </tr>
+            <tr>
+                <td>total_student_enrolled</td>
+                <td>Integer</td>
+                <td>Not Null</td>
+            </tr>
+            <tr>
+                <td>status</td>
+                <td>String(255)</td>
+                <td>Not Null</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <h3>Recommendation Table Schema</h3>
+    <table>
+        <thead>
+            <th>Column Name</th>
+            <th>Column Type</th>
+            <th>Constraints</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>r_id</td>
+                <td>Integer</td>
+                <td>Primary Key, Auto Increment</td>
+            </tr>
+            <tr>
+                <td>roll_no</td>
+                <td>String</td>
+                <td>Foreign Key (studentdetails.roll_no), Not Null</td>
+            </tr>
+            <tr>
+                <td>course_one</td>
+                <td>String</td>
+                <td>Foreign Key (courses.course_name), Not Null</td>
+            </tr>
+            <tr>
+                <td>course_two</td>
+                <td>String</td>
+                <td>Foreign Key (courses.course_name), Not Null</td>
+            </tr>
+            <tr>
+                <td>course_three</td>
+                <td>String</td>
+                <td>Foreign Key (courses.course_name), Not Null</td>
+            </tr>
+            <tr>
+                <td>course_four</td>
+                <td>String</td>
+                <td>Foreign Key (courses.course_name), Not Null</td>
+            </tr>
+            <tr>
+                <td>status</td>
+                <td>String(255)</td>
+                <td>Not Null</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <h3>StudentCourseDetails Table Schema</h3>
+    <table>
+        <thead>
+            <th>Column Name</th>
+            <th>Column Type</th>
+            <th>Constraints</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>ucd_id</td>
+                <td>Integer</td>
+                <td>Primary Key, Auto Increment</td>
+            </tr>
+            <tr>
+                <td>roll_no</td>
+                <td>String</td>
+                <td>Foreign Key (studentdetails.roll_no), Not Null</td>
+            </tr>
+            <tr>
+                <td>course_id</td>
+                <td>Integer</td>
+                <td>Foreign Key (courses.course_id), Not Null</td>
+            </tr>
+            <tr>
+                <td>course_term</td>
+                <td>Integer</td>
+                <td>Not Null</td>
+            </tr>
+            <tr>
+                <td>course_status</td>
+                <td>String</td>
+                <td>Not Null</td>
+            </tr>
+            <tr>
+                <td>grade</td>
+                <td>String</td>
+                <td>Not Null</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <h3>Feedback Table Schema</h3>
+    <table>
+        <thead>
+            <th>Column Name</th>
+            <th>Column Type</th>
+            <th>Constraints</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>f_id</td>
+                <td>Integer</td>
+                <td>Primary Key, Auto Increment</td>
+            </tr>
+            <tr>
+                <td>roll_no</td>
+                <td>String</td>
+                <td>Foreign Key (studentdetails.roll_no), Not Null</td>
+            </tr>
+            <tr>
+                <td>course_id</td>
+                <td>Integer</td>
+                <td>Foreign Key (courses.course_id), Not Null</td>
+            </tr>
+            <tr>
+                <td>teacher</td>
+                <td>Integer</td>
+                <td>Foreign Key (user.id), Not Null</td>
+            </tr>
+            <tr>
+                <td>assignment</td>
+                <td>Integer</td>
+                <td>Not Null</td>
+            </tr>
+            <tr>
+                <td>exams</td>
+                <td>Integer</td>
+                <td>Not Null</td>
+            </tr>
+            <tr>
+                <td>content</td>
+                <td>Integer</td>
+                <td>Not Null</td>
+            </tr>
+            <tr>
+                <td>toughness</td>
+                <td>Integer</td>
+                <td>Not Null</td>
+            </tr>
+            <tr>
+                <td>overall</td>
+                <td>Integer</td>
+                <td>Not Null</td>
+            </tr>
+            <tr>
+                <td>grade</td>
+                <td>String</td>
+                <td>Not Null</td>
+            </tr>
+            <tr>
+                <td>feedback_question</td>
+                <td>String(255)</td>
+                <td>Not Null</td>
+            </tr>
+            <tr>
+                <td>feedback</td>
+                <td>String(255)</td>
+                <td>Not Null</td>
+            </tr>
+        </tbody>
+    </table>
+
+        
+    <h3> Error Codes </h3> 
+    <table>
+      <thead>
+        <th>Resource</th>
+        <th>Error Code</th>
+        <th>Message</th>
+      </thead>
+      <tbody>
+      <tr>
+        <td>User</td>
+        <td>USER001</td>
+        <td>User Name is required</td>
+      </tr>
+      <tr>
+        <td>User</td>
+        <td>USER002</td>
+        <td>Email is required</td>
+      </tr>
+      <tr>
+        <td>User</td>
+        <td>USER003</td>
+        <td>password is required</td>
+      </tr>
+      <tr>
+        <td>User</td>
+        <td>USER004</td>
+        <td>user already exist</td>
+      </tr>
+      <tr>
+            <td>Feedback</td>
+            <td>FB001</td>
+            <td>roll_no is required</td>
+        </tr>
+        <tr>
+            <td>Feedback</td>
+            <td>FB002</td>
+            <td>course_id is required</td>
+        </tr>
+        <tr>
+            <td>Feedback</td>
+            <td>FB003</td>
+            <td>teacher is required</td>
+        </tr>
+        <tr>
+            <td>Feedback</td>
+            <td>FB004</td>
+            <td>assignment is required</td>
+        </tr>
+        <tr>
+            <td>Feedback</td>
+            <td>FB005</td>
+            <td>exams is required</td>
+        </tr>
+        <tr>
+            <td>Feedback</td>
+            <td>FB006</td>
+            <td>content is required</td>
+        </tr>
+        <tr>
+            <td>Feedback</td>
+            <td>FB007</td>
+            <td>toughness is required</td>
+        </tr>
+        <tr>
+            <td>Feedback</td>
+            <td>FB008</td>
+            <td>overall is required</td>
+        </tr>
+        <tr>
+            <td>Feedback</td>
+            <td>FB009</td>
+            <td>grade is required</td>
+        </tr>
+        <tr>
+            <td>Feedback</td>
+            <td>FB010</td>
+            <td>feedback_question is required</td>
+        </tr>
+        <tr>
+            <td>Feedback</td>
+            <td>FB011</td>
+            <td>feedback is required</td>
+        </tr>
+        <tr>
+            <td>Feedback</td>
+            <td>FB012</td>
+            <td>feedback already exists</td>
+        </tr>
+        <tr>
+          <td>Recommendation</td>
+          <td>R001</td>
+          <td>roll_no is required</td>
+        </tr>
+        <tr>
+          <td>Recommendation</td>
+          <td>R002</td>
+          <td>course_one is required</td>
+        </tr>
+        <tr>
+          <td>Recommendation</td>
+          <td>R003</td>
+          <td>course_two is required</td>
+        </tr>
+        <tr>
+          <td>Recommendation</td>
+          <td>R004</td>
+          <td>course_three is required</td>
+        </tr>
+        <tr>
+          <td>Recommendation</td>
+          <td>R005</td>
+          <td>course_four is required</td>
+        </tr>
+        <tr>
+          <td>Recommendation</td>
+          <td>R006</td>
+          <td>status is required</td>
+        </tr>
+        <tr>
+          <td>Recommendation</td>
+          <td>R007</td>
+          <td>recommendation already exist</td>
+        </tr>
+        <tr>
+          <td>Courses</td>
+          <td>C001</td>
+          <td>course_name is required</td>
+        </tr>
+        <tr>
+          <td>Courses</td>
+          <td>C001</td>
+          <td>course_id is required</td>
+        </tr>
+        <tr>
+          <td>Courses</td>
+          <td>C002</td>
+          <td>course_name is required</td>
+        </tr>
+        <tr>
+          <td>Courses</td>
+          <td>C003</td>
+          <td>level is required</td>
+        </tr>
+        <tr>
+          <td>Courses</td>
+          <td>C004</td>
+          <td>enrolled_this_term is required</td>
+        </tr>
+        <tr>
+          <td>Courses</td>
+          <td>C005</td>
+          <td>enrolled_so_far is required</td>
+        </tr>
+        <tr>
+          <td>Courses</td>
+          <td>C006</td>
+          <td>course_credit is required</td>
+        </tr>
+        <tr>
+          <td>Courses</td>
+          <td>C007</td>
+          <td>course_description is required</td>
+        </tr>
+        <tr>
+          <td>Courses</td>
+          <td>C008</td>
+          <td>teacher is required</td>
+        </tr>
+        <tr>
+          <td>Courses</td>
+          <td>C009</td>
+          <td>pre_req1 is required</td>
+        </tr>
+        <tr>
+          <td>Courses</td>
+          <td>C010</td>
+          <td>pre_req2 is required</td>
+        </tr>
+        <tr>
+          <td>Courses</td>
+          <td>C011</td>
+          <td>fees is required</td>
+        </tr>
+        <tr>
+          <td>Courses</td>
+          <td>C012</td>
+          <td>toughness is required</td>
+        </tr>
+        <tr>
+          <td>Courses</td>
+          <td>C013</td>
+          <td>avg_marks is required</td>
+        </tr>
+        <tr>
+          <td>Courses</td>
+          <td>C014</td>
+          <td>success_rate is required</td>
+        </tr>
+        <tr>
+          <td>Courses</td>
+          <td>C015</td>
+          <td>course already exists</td>
+        </tr>
+        <tr>
+          <td>StudentDetails</td>
+          <td>SD001</td>
+          <td>user_id is required</td>
+        </tr>
+        <tr>
+          <td>StudentDetails</td>
+          <td>SD002</td>
+          <td>roll_no is required</td>
+        </tr>
+        <tr>
+          <td>StudentDetails</td>
+          <td>SD003</td>
+          <td>current_status is required</td>
+        </tr>
+        <tr>
+          <td>StudentDetails</td>
+          <td>SD004</td>
+          <td>select_your_course is required</td>
+        </tr>
+        <tr>
+          <td>StudentDetails</td>
+          <td>SD005</td>
+          <td>commit_per_week is required</td>
+        </tr>
+        <tr>
+          <td>StudentDetails</td>
+          <td>SD006</td>
+          <td>budget_per_term is required</td>
+        </tr>
+        <tr>
+          <td>StudentDetails</td>
+          <td>SD007</td>
+          <td>CGPA is required</td>
+        </tr>
+        <tr>
+          <td>StudentDetails</td>
+          <td>SD008</td>
+          <td>interest is required</td>
+        </tr>
+        <tr>
+          <td>StudentDetails</td>
+          <td>SD009</td>
+          <td>about is required</td>
+        </tr>
+        <tr>
+          <td>StudentDetails</td>
+          <td>SD010</td>
+          <td>dob is required</td>
+        </tr>
+        <tr>
+          <td>StudentDetails</td>
+          <td>SD011</td>
+          <td>student already exists</td>
+        </tr>
+        <tr>
+          <td>StudentEnrollment</td>
+          <td>SE001</td>
+          <td>term is required</td>
+        </tr>
+        <tr>
+          <td>StudentEnrollment</td>
+          <td>SE002</td>
+          <td>total_students_emrolled is required</td>
+        </tr>
+        <tr>
+          <td>StudentEnrollment</td>
+          <td>SE003</td>
+          <td>total_registered_students is required</td>
+        </tr>
+        <tr>
+          <td>StudentEnrollment</td>
+          <td>SE004</td>
+          <td>students_with_full_profile is required</td>
+        </tr>
+        <tr>
+          <td>StudentEnrollment</td>
+          <td>SE005</td>
+          <td>Average_score is required</td>
+        </tr>
+        <tr>
+          <td>StudentEnrollment</td>
+          <td>SE006</td>
+          <td>high_sub_rate is required</td>
+        </tr>
+        <tr>
+          <td>StudentEnrollment</td>
+          <td>SE007</td>
+          <td>student already exists</td>
+        </tr>
+        <tr>
+          <td>StudentCourseDetails</td>
+          <td>SCD001</td>
+          <td>roll_no is required</td>
+        </tr>
+        <tr>
+          <td>StudentCourseDetails</td>
+          <td>SCD002</td>
+          <td>course_id is required</td>
+        </tr>
+        <tr>
+          <td>StudentCourseDetails</td>
+          <td>SCD003</td>
+          <td>course_term is required</td>
+        </tr>
+        <tr>
+          <td>StudentCourseDetails</td>
+          <td>SCD004</td>
+          <td>course_status is required</td>
+        </tr>
+        <tr>
+          <td>StudentCourseDetails</td>
+          <td>SCD005</td>
+          <td>grade is required</td>
+        </tr>
+        <tr>
+          <td>StudentCourseDetails</td>
+          <td>SCD006</td>
+          <td>student course details already exist</td>
+        </tr>
+        <tr>
+          <td>Term</td>
+          <td>T001</td>
+          <td>term is required</td>
+        </tr>
+        <tr>
+          <td>Term</td>
+          <td>T002</td>
+          <td>start_date is required</td>
+        </tr>
+        <tr>
+          <td>Term</td>
+          <td>T003</td>
+          <td>end_date is required</td>
+        </tr>
+        <tr>
+          <td>Term</td>
+          <td>T004</td>
+          <td>total_student_enrolled is required</td>
+        </tr>
+        <tr>
+          <td>Term</td>
+          <td>T005</td>
+          <td>status is required</td>
+        </tr>
+        <tr>
+          <td>Term</td>
+          <td>T006</td>
+          <td>term already exist</td>
+        </tr>
+        <tr>
+          <td>Queries</td>
+          <td>Q001</td>
+          <td>roll_no is required</td>
+        </tr>
+        <tr>
+          <td>Queries</td>
+          <td>Q002</td>
+          <td>query is required</td>
+        </tr>
+        <tr>
+          <td>Queries</td>
+          <td>Q003</td>
+          <td>reply is required</td>
+        </tr>
+        <tr>
+          <td>Queries</td>
+          <td>Q004</td>
+          <td>status is required</td>
+        </tr>
+        <tr>
+          <td>Queries</td>
+          <td>Q005</td>
+          <td>date is required</td>
+        </tr>
+        <tr>
+          <td>Queries</td>
+          <td>Q006</td>
+          <td>query already exist</td>
+        </tr>
+      </tbody>
+    </table>
+      
+      
+     
+
+  version: 1.0.0
+servers:
+  - url: http://127.0.0.1:8080/
+paths:
+  /api/user:
+    description: Url to read and create the user resource.
+    get:
+      description: Operation to read all user resource
+      responses:
+        '200':
+          description: Request Successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    user_name:
+                      type: string
+                      example: Arun
+                    email:
+                      type: string
+                      example: arunrajan@gmail.com
+                    password:
+                      type: string
+                      example: 12345678
+        '500':
+          description: Internal server error
+        '404':
+          description: User not found
+
+
+    post:
+      description: Operation to create the user resource
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_name:
+                    type: string
+                    example: Arun
+                email:
+                    type: string
+                    example: arunrajan@gmail.com
+                password:
+                    type: string
+                    example: 12345678
+      responses:
+        '201':
+          description: Successfully updated
+          content:
+            application/json:
+              schema:
+                title: student object
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  user_name:
+                    type: string
+                    example: Arun
+                  email:
+                    type: string
+                    example: arunrajan@gmail.com
+                  password:
+                    type: string
+                    example: 1234
+        '409':
+          description: User already exist
+        '500':
+          description: Internal Server Error
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                  error_message:
+                    type: string
+                    
+  /api/user/{user_id}:
+    description: Url to update and delete the user resource.
+    put:
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The ID of the user to update
+      description: Operation to update the user resource
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_name:
+                    type: string
+                    example: Arun
+                email:
+                    type: string
+                    example: arunrajan@gmail.com
+                password:
+                    type: string
+                    example: 12345678
+      responses:
+        '201':
+          description: Successfully updated
+          content:
+            application/json:
+              schema:
+                title: student object
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  username:
+                    type: string
+                    example: Arun
+                  email:
+                    type: string
+                    example: arunrajan@gmail.com
+                  password:
+                    type: string
+                    example: 1234
+        '409':
+          description: User already exists
+        '500':
+          description: Internal Server Error
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                  error_message:
+                    type: string
+
+    delete:
+      description: operation to delete the user
+      parameters:
+        - in: path
+          name: user_id
+          required: true
+          schema:
+            type: integer
+            example: 1
+        
+      responses:
+        '200':
+          description: Successfully deleted
+        '400':
+          description: Invalid user_id.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                  error_message:
+                    type: string
+        '404':
+          description: user not found
+        '500':
+          description: Internal Server Error
+
+  /api/feedback:
+   get:
+    description: Get all feedback
+    responses:
+      '200':
+        description: Request Successful
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  roll_no:
+                    type: string
+                    example: 22f1000888
+                  course_id:
+                    type: integer
+                    example: 1
+                  teacher:
+                    type: integer
+                    example: 1
+                  assignment:
+                    type: integer
+                    example: 4
+                  exams:
+                    type: integer
+                    example: 5
+                  content:
+                    type: integer
+                    example: 3
+                  toughness:
+                    type: integer
+                    example: 4
+                  overall:
+                    type: integer
+                    example: 4
+                  grade:
+                    type: string
+                    example: A
+                  feedback_question:
+                    type: string
+                    example: "How was the course content?"
+                  feedback:
+                    type: string
+                    example: "The course content was informative."
+      '404':
+          description: Feedbacks not found
+
+   post:
+    description: Create a new feedback
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              roll_no:
+                type: string
+                example: 22f1000888
+              course_id:
+                type: integer
+                example: 1
+              teacher:
+                type: integer
+                example: 1
+              assignment:
+                type: integer
+                example: 4
+              exams:
+                type: integer
+                example: 5
+              content:
+                type: integer
+                example: 3
+              toughness:
+                type: integer
+                example: 4
+              overall:
+                type: integer
+                example: 4
+              grade:
+                type: string
+                example: A
+              feedback_question:
+                type: string
+                example: "How was the course content?"
+              feedback:
+                type: string
+                example: "The course content was informative."
+    responses:
+      '201':
+        description: Successfully created
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example: 1
+                roll_no:
+                  type: string
+                  example: "22f1000888"
+                course_id:
+                  type: integer
+                  example: 1
+                teacher:
+                  type: integer
+                  example: 1
+                assignment:
+                  type: integer
+                  example: 4
+                exams:
+                  type: integer
+                  example: 5
+                content:
+                  type: integer
+                  example: 3
+                toughness:
+                  type: integer
+                  example: 4
+                overall:
+                  type: integer
+                  example: 4
+                grade:
+                  type: string
+                  example: A
+                feedback_question:
+                  type: string
+                  example: "How was the course content?"
+                feedback:
+                  type: string
+                  example: "The course content was informative."
+      '400':
+        description: Bad request
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+      '401':
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+
+  /api/feedback/{feedback_id}:
+   put:
+    description: Update an existing feedback
+    parameters:
+      - in: path
+        name: feedback_id
+        required: true
+        schema:
+          type: integer
+          example: 1
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              roll_no:
+                type: string
+                example: 22f1000888
+              course_id:
+                type: integer
+                example: 1
+              teacher:
+                type: integer
+                example: 1
+              assignment:
+                type: integer
+                example: 4
+              exams:
+                type: integer
+                example: 5
+              content:
+                type: integer
+                example: 3
+              toughness:
+                type: integer
+                example: 4
+              overall:
+                type: integer
+                example: 4
+              grade:
+                type: string
+                example: A
+              feedback_question:
+                type: string
+                example: "How was the course content?"
+              feedback:
+                type: string
+                example: "The course content was informative."
+    responses:
+      '200':
+        description: Successfully updated
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example: 1
+                roll_no:
+                  type: string
+                  example: 22f1000888
+                course_id:
+                  type: integer
+                  example: 1
+                teacher:
+                  type: integer
+                  example: 1
+                assignment:
+                  type: integer
+                  example: 4
+                exams:
+                  type: integer
+                  example: 5
+                content:
+                  type: integer
+                  example: 3
+                toughness:
+                  type: integer
+                  example: 4
+                overall:
+                  type: integer
+                  example: 4
+                grade:
+                  type: string
+                  example: A
+                feedback_question:
+                  type: string
+                  example: "How was the course content?"
+                feedback:
+                  type: string
+                  example: "The course content was informative."
+      '400':
+        description: Bad request
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+      '401':
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+      '404':
+        description: Feedback not found
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+   delete:
+    description: Delete a feedback
+    parameters:
+      - in: path
+        name: feedback_id
+        required: true
+        schema:
+          type: integer
+          example: 1
+    responses:
+      '200':
+        description: Successfully deleted
+      '400':
+        description: Invalid feedback_id
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+      '404':
+        description: Feedback not found
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+
+  /api/recommendation:
+   get:
+    description: Get recommended courses for the authenticated user
+    responses:
+      '200':
+        description: Request Successful
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  roll_no:
+                    type: string
+                    example: 22f1000888
+                  course_one:
+                    type: string
+                    example: "DBMS"
+                  course_two:
+                    type: string
+                    example: "BDM"
+                  course_three:
+                    type: string
+                    example: "PDSA"
+                  course_four:
+                    type: string
+                    example: "TDS"
+                  status:
+                    type: string
+                    example: "Enrolled"
+      '401':
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+
+   post:
+    description: Create a new recommendation
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              roll_no:
+                type: string
+                example: 22f1000888
+              course_one:
+                type: string
+                example: "DBMS"
+              course_two:
+                type: string
+                example: "PDSA"
+              course_three:
+                type: string
+                example: "TDS"
+              course_four:
+                type: string
+                example: "BDM"
+              status:
+                type: string
+                example: "Enrolled"
+    responses:
+      '201':
+        description: Successfully created
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example: 1
+                roll_no:
+                  type: string
+                  example: 22f1000888
+                course_one:
+                  type: string
+                  example: "DBMS"
+                course_two:
+                  type: string
+                  example: "PDSA"
+                course_three:
+                  type: string
+                  example: "TDS"
+                course_four:
+                  type: string
+                  example: "BDM"
+                status:
+                  type: string
+                  example: "Enrolled"
+      '400':
+        description: Bad request
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+      '401':
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+      '409':
+        description: Recommendation already exists
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+
+  /api/recommendation/{recommendation_id}:
+   put:
+    description: Update an existing recommendation
+    parameters:
+      - in: path
+        name: recommendation_id
+        required: true
+        schema:
+          type: integer
+          example: 1
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              roll_no:
+                type: string
+                example: 22f1000888
+              course_one:
+                type: string
+                example: "DBMS"
+              course_two:
+                type: string
+                example: "PDSA"
+              course_three:
+                type: string
+                example: "TDS"
+              course_four:
+                type: string
+                example: "BDM"
+              status:
+                type: string
+                example: "Enrolled"
+    responses:
+      '200':
+        description: Successfully updated
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example: 1
+                roll_no:
+                  type: string
+                  example: 22f1000888
+                course_one:
+                  type: string
+                  example: "DBMS"
+                course_two:
+                  type: string
+                  example: "PDSA"
+                course_three:
+                  type: string
+                  example: "TDS"
+                course_four:
+                  type: string
+                  example: "BDM"
+                status:
+                  type: string
+                  example: "Enrolled"
+      '400':
+        description: Bad request
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+      '401':
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+      '404':
+        description: Recommendation not found
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+
+   delete:
+    description: Delete a recommendation
+    parameters:
+      - in: path
+        name: recommendation_id
+        required: true
+        schema:
+          type: integer
+          example: 1
+    responses:
+      '200':
+        description: Successfully deleted
+      '400':
+        description: Invalid recommendation_id
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+
+  /api/courses:
+   get:
+    description: Get all courses
+    responses:
+      '200':
+        description: Request Successful
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  course_id:
+                    type: integer
+                    example: 1
+                  course_name:
+                    type: string
+                    example: "MAD II"
+                  level:
+                    type: string
+                    example: "Diploma"
+                  enrolled_this_term:
+                    type: integer
+                    example: 5000
+                  enrolled_so_far:
+                    type: integer
+                    example: 20000
+                  course_credit:
+                    type: integer
+                    example: 4
+                  course_description:
+                    type: string
+                    example: "programming"
+                  teacher:
+                    type: string
+                    example: "John Doe"
+                  pre_req1:
+                    type: string
+                    example: "MAD I"
+                  pre_req2:
+                    type: string
+                    example: "DBMS"
+                  fees:
+                    type: integer
+                    example: 10000
+                  toughness:
+                    type: integer
+                    example: 8
+                  avg_marks:
+                    type: number
+                    example: 85.5
+                  success_rate:
+                    type: number
+                    example: 90.0
+      '404':
+        description: Courses not found
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+
+   post:
+    description: Create a new course
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              course_name:
+                    type: string
+                    example: "MAD II"
+              level:
+                type: string
+                example: "Diploma"
+              enrolled_this_term:
+                type: integer
+                example: 5000
+              enrolled_so_far:
+                type: integer
+                example: 20000
+              course_credit:
+                type: integer
+                example: 4
+              course_description:
+                type: string
+                example: "programming"
+              teacher:
+                type: string
+                example: "John Doe"
+              pre_req1:
+                type: string
+                example: "MAD I"
+              pre_req2:
+                type: string
+                example: "DBMS"
+              fees:
+                type: integer
+                example: 10000
+              toughness:
+                type: integer
+                example: 8
+              avg_marks:
+                type: number
+                example: 85.5
+              success_rate:
+                type: number
+                example: 90.0
+    responses:
+      '201':
+        description: Successfully created
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                course_id:
+                  type: integer
+                  example: 1
+                course_name:
+                    type: string
+                    example: "MAD II"
+                level:
+                  type: string
+                  example: "Diploma"
+                enrolled_this_term:
+                  type: integer
+                  example: 5000
+                enrolled_so_far:
+                  type: integer
+                  example: 20000
+                course_credit:
+                  type: integer
+                  example: 4
+                course_description:
+                  type: string
+                  example: "programming"
+                teacher:
+                  type: string
+                  example: "John Doe"
+                pre_req1:
+                  type: string
+                  example: "MAD I"
+                pre_req2:
+                  type: string
+                  example: "DBMS"
+                fees:
+                  type: integer
+                  example: 10000
+                toughness:
+                  type: integer
+                  example: 8
+                avg_marks:
+                  type: number
+                  example: 85.5
+                success_rate:
+                  type: number
+                  example: 90.0
+      '400':
+        description: Bad request
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+      '401':
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+      '409':
+        description: Course already exists
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+
+  /api/courses/{course_id}:
+   put:
+    description: Update an existing course
+    parameters:
+      - in: path
+        name: course_id
+        required: true
+        schema:
+          type: integer
+          example: 1
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              course_name:
+                    type: string
+                    example: "MAD II"
+              level:
+                type: string
+                example: "Diploma"
+              enrolled_this_term:
+                type: integer
+                example: 5000
+              enrolled_so_far:
+                type: integer
+                example: 20000
+              course_credit:
+                type: integer
+                example: 4
+              course_description:
+                type: string
+                example: "programming"
+              teacher:
+                type: string
+                example: "John Doe"
+              pre_req1:
+                type: string
+                example: "MAD I"
+              pre_req2:
+                type: string
+                example: "DBMS"
+              fees:
+                type: integer
+                example: 10000
+              toughness:
+                type: integer
+                example: 8
+              avg_marks:
+                type: number
+                example: 85.5
+              success_rate:
+                type: number
+                example: 90.0
+    responses:
+      '200':
+        description: Successfully updated
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                course_id:
+                  type: integer
+                  example: 1
+                course_name:
+                    type: string
+                    example: "MAD II"
+                level:
+                  type: string
+                  example: "Diploma"
+                enrolled_this_term:
+                  type: integer
+                  example: 5000
+                enrolled_so_far:
+                  type: integer
+                  example: 20000
+                course_credit:
+                  type: integer
+                  example: 4
+                course_description:
+                  type: string
+                  example: "programming"
+                teacher:
+                  type: string
+                  example: "John Doe"
+                pre_req1:
+                  type: string
+                  example: "MAD I"
+                pre_req2:
+                  type: string
+                  example: "DBMS"
+                fees:
+                  type: integer
+                  example: 10000
+                toughness:
+                  type: integer
+                  example: 8
+                avg_marks:
+                  type: number
+                  example: 85.5
+                success_rate:
+                  type: number
+                  example: 90.0
+      '400':
+        description: Bad request
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+      '401':
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+      '404':
+        description: Course not found
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+
+   delete:
+    description: Delete a course
+    parameters:
+      - in: path
+        name: course_id
+        required: true
+        schema:
+          type: integer
+          example: 1
+    responses:
+      '200':
+        description: Successfully deleted
+      '400':
+        description: Invalid course_id
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+      '404':
+        description: Course not found
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+  /api/studentdetails:
+   get:
+    description: Get all student details
+    responses:
+      '200':
+        description: Request Successful
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  sd_id:
+                    type: integer
+                    example: 1
+                  user_id:
+                    type: integer
+                    example: 123
+                  roll_no:
+                    type: string
+                    example: "22f1000888"
+                  current_status:
+                    type: string
+                    example: "Enrolled"
+                  select_your_course:
+                    type: string
+                    example: "PDSA"
+                  commit_per_week:
+                    type: integer
+                    example: 30
+                  budget_per_term:
+                    type: integer
+                    example: 30000
+                  CGPA:
+                    type: number
+                    example: 8.5
+                  interest:
+                    type: string
+                    example: "Programming"
+                  about:
+                    type: string
+                    example: "A passionate student"
+                  dob:
+                    type: string
+                    example: "2000-01-01"
+      '404':
+        description: Student details not found
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+
+   post:
+    description: Create new student details
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              user_id:
+                type: integer
+                example: 1 
+              roll_no:
+                type: string
+                example: "22f1000888"
+              current_status:
+                type: string
+                example: "Enrolled"
+              select_your_course:
+                type: string
+                example: "PDSA"
+              commit_per_week:
+                type: integer
+                example: 30
+              budget_per_term:
+                type: integer
+                example: 30000
+              CGPA:
+                type: number
+                example: 8.5
+              interest:
+                type: string
+                example: "Programming"
+              about:
+                type: string
+                example: "A passionate student"
+              dob:
+                type: string
+                example: "2000-01-01"
+    responses:
+      '201':
+        description: Successfully created
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sd_id:
+                  type: integer
+                  example: 1
+                user_id:
+                  type: integer
+                  example: 123
+                roll_no:
+                  type: string
+                  example: "22f1000888"
+                current_status:
+                  type: string
+                  example: "Enrolled"
+                select_your_course:
+                  type: string
+                  example: "PDSA"
+                commit_per_week:
+                  type: integer
+                  example: 30
+                budget_per_term:
+                  type: integer
+                  example: 30000
+                CGPA:
+                  type: number
+                  example: 8.5
+                interest:
+                  type: string
+                  example: "Programming"
+                about:
+                  type: string
+                  example: "A passionate student"
+                dob:
+                  type: string
+                  example: "2000-01-01"
+      '400':
+        description: Bad request
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+      '401':
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+      '409':
+        description: Student details already exist
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+
+  /api/studentdetails/{sd_id}:
+   put:
+    description: Update existing student details
+    parameters:
+      - in: path
+        name: sd_id
+        required: true
+        schema:
+          type: integer
+          example: 1
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              user_id:
+                type: integer
+                example: 1 
+              roll_no:
+                type: string
+                example: "22f1000888"
+              current_status:
+                type: string
+                example: "Enrolled"
+              select_your_course:
+                type: string
+                example: "PDSA"
+              commit_per_week:
+                type: integer
+                example: 30
+              budget_per_term:
+                type: integer
+                example: 30000
+              CGPA:
+                type: number
+                example: 8.5
+              interest:
+                type: string
+                example: "Programming"
+              about:
+                type: string
+                example: "A passionate student"
+              dob:
+                type: string
+                example: "2000-01-01"
+    responses:
+      '200':
+        description: Successfully updated
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sd_id:
+                  type: integer
+                  example: 1
+                user_id:
+                  type: integer
+                  example: 123
+                roll_no:
+                  type: string
+                  example: "22f1000888"
+                current_status:
+                  type: string
+                  example: "Enrolled"
+                select_your_course:
+                  type: string
+                  example: "PDSA"
+                commit_per_week:
+                  type: integer
+                  example: 30
+                budget_per_term:
+                  type: integer
+                  example: 30000
+                CGPA:
+                  type: number
+                  example: 8.5
+                interest:
+                  type: string
+                  example: "Programming"
+                about:
+                  type: string
+                  example: "A passionate student"
+                dob:
+                  type: string
+                  example: "2000-01-01"
+      '400':
+        description: Bad request
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+      '401':
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+      '404':
+        description: Student details not found
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+
+   delete:
+    description: Delete student details
+    parameters:
+      - in: path
+        name: sd_id
+        required: true
+        schema:
+          type: integer
+          example: 1
+    responses:
+      '200':
+        description: Successfully deleted
+      '400':
+        description: Invalid sd_id
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+      '404':
+        description: Student details not found
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+  /api/studentenrollment:
+   get:
+    description: Get all student enrollment details
+    responses:
+      '200':
+        description: Request Successful
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  se_id:
+                    type: integer
+                    example: 1
+                  term:
+                    type: string
+                    example: "Sep 2023"
+                  total_students_enrolled:
+                    type: integer
+                    example: 5000
+                  total_registered_students:
+                    type: integer
+                    example: 5500
+                  students_with_full_profile:
+                    type: integer
+                    example: 4500
+                  Average_score:
+                    type: number
+                    example: 85.5
+                  high_sub_rate:
+                    type: number
+                    example: 90.2
+      '404':
+        description: Student enrollment details not found
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+
+   post:
+    description: Create new student enrollment details
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              term:
+                type: string
+                example: "Sep 2023"
+              total_students_enrolled:
+                type: integer
+                example: 5000
+              total_registered_students:
+                type: integer
+                example: 5500
+              students_with_full_profile:
+                type: integer
+                example: 4500
+              Average_score:
+                type: number
+                example: 85.5
+              high_sub_rate:
+                type: number
+                example: 90.2
+    responses:
+      '201':
+        description: Successfully created
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                se_id:
+                  type: integer
+                  example: 1
+                term:
+                  type: string
+                  example: "Sep 2023"
+                total_students_enrolled:
+                  type: integer
+                  example: 5000
+                total_registered_students:
+                  type: integer
+                  example: 5500
+                students_with_full_profile:
+                  type: integer
+                  example: 4500
+                Average_score:
+                  type: number
+                  example: 85.5
+                high_sub_rate:
+                  type: number
+                  example: 90.2
+      '400':
+        description: Bad request
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+      '401':
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+      '409':
+        description: Student enrollment details already exist
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+
+  /api/studentenrollment/{se_id}:
+   put:
+    description: Update existing student enrollment details
+    parameters:
+      - in: path
+        name: se_id
+        required: true
+        schema:
+          type: integer
+          example: 1
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              term:
+                type: string
+                example: "Sep 2023"
+              total_students_enrolled:
+                type: integer
+                example: 5000
+              total_registered_students:
+                type: integer
+                example: 5500
+              students_with_full_profile:
+                type: integer
+                example: 4500
+              Average_score:
+                type: number
+                example: 85.5
+              high_sub_rate:
+                type: number
+                example: 90.2
+    responses:
+      '200':
+        description: Successfully updated
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                se_id:
+                  type: integer
+                  example: 1
+                term:
+                  type: string
+                  example: "Sep 2023"
+                total_students_enrolled:
+                  type: integer
+                  example: 5000
+                total_registered_students:
+                  type: integer
+                  example: 5500
+                students_with_full_profile:
+                  type: integer
+                  example: 4500
+                Average_score:
+                  type: number
+                  example: 85.5
+                high_sub_rate:
+                  type: number
+                  example: 90.2
+      '400':
+        description: Bad request
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+      '401':
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+      '404':
+        description: Student enrollment details not found
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+
+   delete:
+    description: Delete student enrollment details
+    parameters:
+      - in: path
+        name: se_id
+        required: true
+        schema:
+          type: integer
+          example: 1
+    responses:
+      '200':
+        description: Successfully deleted
+      '400':
+        description: Invalid se_id
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+      '404':
+        description: Student enrollment details not found
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+
+  /api/studentcoursedetails:
+   get:
+    description: Get all student course details
+    responses:
+      '200':
+        description: Request Successful
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  roll_no:
+                    type: string
+                    example: "22f1000888"
+                  course_id:
+                    type: integer
+                    example: 101
+                  course_term:
+                    type: string
+                    example: "Sep 2023"
+                  course_status:
+                    type: string
+                    example: "Enrolled"
+                  grade:
+                    type: string
+                    example: "A"
+      '404':
+        description: Student course details not found
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+
+   post:
+    description: Create new student course details
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              roll_no:
+                type: string
+                example: "22f1000888"
+              course_id:
+                type: integer
+                example: 101
+              course_term:
+                type: string
+                example: "Sep 2023"
+              course_status:
+                type: string
+                example: "Enrolled"
+              grade:
+                type: string
+                example: "A"
+    responses:
+      '201':
+        description: Successfully created
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example: 1
+                roll_no:
+                  type: string
+                  example: "22f1000888"
+                course_id:
+                  type: integer
+                  example: 101
+                course_term:
+                  type: string
+                  example: "Sep 2023"
+                course_status:
+                  type: string
+                  example: "Enrolled"
+                grade:
+                  type: string
+                  example: "A"
+      '400':
+        description: Bad request
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+      '401':
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+      '409':
+        description: Student course details already exist
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+
+  /api/studentcoursedetails/{student_course_details_id}:
+   put:
+    description: Update existing student course details
+    parameters:
+      - in: path
+        name: student_course_details_id
+        required: true
+        schema:
+          type: integer
+          example: 1
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              roll_no:
+                type: string
+                example: "22f1000888"
+              course_id:
+                type: integer
+                example: 101
+              course_term:
+                type: string
+                example: "Sep 2023"
+              course_status:
+                type: string
+                example: "Enrolled"
+              grade:
+                type: string
+                example: "A"
+    responses:
+      '200':
+        description: Successfully updated
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example: 1
+                roll_no:
+                  type: string
+                  example: "22f1000888"
+                course_id:
+                  type: integer
+                  example: 101
+                course_term:
+                  type: string
+                  example: "Sep 2023"
+                course_status:
+                  type: string
+                  example: "Enrolled"
+                grade:
+                  type: string
+                  example: "A"
+      '400':
+        description: Bad request
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+      '401':
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+      '404':
+        description: Student course details not found
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+
+   delete:
+    description: Delete student course details
+    parameters:
+      - in: path
+        name: student_course_details_id
+        required: true
+        schema:
+          type: integer
+          example: 1
+    responses:
+      '200':
+        description: Successfully deleted
+      '400':
+        description: Invalid student_course_details_id
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+      '404':
+        description: Student course details not found
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+  /api/term:
+   get:
+    description: Get all terms
+    responses:
+      '200':
+        description: Request Successful
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  t_id:
+                    type: integer
+                    example: 1
+                  term:
+                    type: string
+                    example: "Sep 2023"
+                  start_date:
+                    type: string
+                    format: date
+                    example: "2023-09-01T1:00"
+                  end_date:
+                    type: string
+                    format: date
+                    example: "2023-12-15T1:00"
+                  total_student_enrolled:
+                    type: integer
+                    example: 5000
+                  status:
+                    type: string
+                    example: "Active"
+      '404':
+        description: Terms not found
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+
+   post:
+    description: Create new term
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              term:
+                type: string
+                example: "Sep 2023"
+              start_date:
+                type: string
+                format: date
+                example: "2023-09-01T1:00"
+              end_date:
+                type: string
+                format: date
+                example: "2023-12-15T1:00"
+              total_student_enrolled:
+                type: integer
+                example: 5000
+              status:
+                type: string
+                example: "Active"
+    responses:
+      '201':
+        description: Successfully created
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                t_id:
+                  type: integer
+                  example: 1
+                term:
+                  type: string
+                  example: "Sep 2023"
+                start_date:
+                  type: string
+                  format: date
+                  example: "2023-09-01T1:00"
+                end_date:
+                  type: string
+                  format: date
+                  example: "2023-12-15T1:00"
+                total_student_enrolled:
+                  type: integer
+                  example: 5000
+                status:
+                  type: string
+                  example: "Active"
+      '400':
+        description: Bad request
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+      '401':
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+      '409':
+        description: Term already exists
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+
+  /api/term/{term_id}:
+   put:
+    description: Update existing term
+    parameters:
+      - in: path
+        name: term_id
+        required: true
+        schema:
+          type: integer
+          example: 1
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              term:
+                type: string
+                example: "Sep 2023"
+              start_date:
+                type: string
+                format: date
+                example: "2023-09-01T1:00"
+              end_date:
+                type: string
+                format: date
+                example: "2023-12-15T1:00"
+              total_student_enrolled:
+                type: integer
+                example: 5000
+              status:
+                type: string
+                example: "Active"
+    responses:
+      '200':
+        description: Successfully updated
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                t_id:
+                  type: integer
+                  example: 1
+                term:
+                  type: string
+                  example: "Sep 2023"
+                start_date:
+                  type: string
+                  format: date
+                  example: "2023-09-01T1:00"
+                end_date:
+                  type: string
+                  format: date
+                  example: "2023-12-15T1:00"
+                total_student_enrolled:
+                  type: integer
+                  example: 5000
+                status:
+                  type: string
+                  example: "Active"
+      '400':
+        description: Bad request
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+      '401':
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+      '404':
+        description: Term not found
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+
+   delete:
+    description: Delete term
+    parameters:
+      - in: path
+        name: term_id
+        required: true
+        schema:
+          type: integer
+          example: 1
+    responses:
+      '200':
+        description: Successfully deleted
+      '400':
+        description: Invalid term_id
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+      '404':
+        description: Term not found
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+
+  /api/queries:
+   get:
+    description: Get all queries
+    responses:
+      '200':
+        description: Request Successful
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  q_id:
+                    type: integer
+                    example: 1
+                  roll_no:
+                    type: string
+                    example: "22f1000191"
+                  query:
+                    type: string
+                    example: "How do I enroll in a course?"
+                  reply:
+                    type: string
+                    example: "You can enroll through the online portal."
+                  status:
+                    type: string
+                    example: "Open"
+                  date:
+                    type: string
+                    format: date
+                    example: "2023-10-01T1:00"
+      '404':
+        description: Queries not found
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+
+   post:
+    description: Create new query
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              roll_no:
+                type: string
+                example: "21f123001"
+              query:
+                type: string
+                example: "How do I enroll in a course?"
+              reply:
+                type: string
+                example: "You can enroll through the online portal."
+              status:
+                type: string
+                example: "Open"
+              date:
+                type: string
+                format: date
+                example: "2023-10-01T1:00"
+    responses:
+      '201':
+        description: Successfully created
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                q_id:
+                  type: integer
+                  example: 1
+                roll_no:
+                  type: string
+                  example: "21f123001"
+                query:
+                  type: string
+                  example: "How do I enroll in a course?"
+                reply:
+                  type: string
+                  example: "You can enroll through the online portal."
+                status:
+                  type: string
+                  example: "Open"
+                date:
+                  type: string
+                  format: date
+                  example: "2023-10-01"
+      '400':
+        description: Bad request
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+      '401':
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+      '409':
+        description: Query already exists
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+
+  /api/queries/{queries_id}:
+   put:
+    description: Update existing query
+    parameters:
+      - in: path
+        name: queries_id
+        required: true
+        schema:
+          type: integer
+          example: 1
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              roll_no:
+                type: string
+                example: "21f123001"
+              query:
+                type: string
+                example: "How do I enroll in a course?"
+              reply:
+                type: string
+                example: "You can enroll through the online portal."
+              status:
+                type: string
+                example: "Open"
+              date:
+                type: string
+                format: date
+                example: "2023-10-01T1:00"
+    responses:
+      '200':
+        description: Successfully updated
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                q_id:
+                  type: integer
+                  example: 1
+                roll_no:
+                  type: string
+                  example: "21f123001"
+                query:
+                  type: string
+                  example: "How do I enroll in a course?"
+                reply:
+                  type: string
+                  example: "You can enroll through the online portal."
+                status:
+                  type: string
+                  example: "Open"
+                date:
+                  type: string
+                  format: date
+                  example: "2023-10-01T1:00"
+      '400':
+        description: Bad request
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+      '401':
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+      '404':
+        description: Query not found
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+
+   delete:
+    description: Delete query
+    parameters:
+      - in: path
+        name: queries_id
+        required: true
+        schema:
+          type: integer
+          example: 1
+    responses:
+      '200':
+        description: Successfully deleted
+      '400':
+        description: Invalid queries_id
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string
+      '404':
+        description: Query not found
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error_code:
+                  type: string
+                error_message:
+                  type: string

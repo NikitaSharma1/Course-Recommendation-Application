@@ -4,6 +4,10 @@ The Course Recommendation System offers personalized course suggestions for stud
 
 Detailed information is provided in the project report.
 
+Video presentation : [Click here](https://drive.google.com/file/d/1_iZV4XGhf9DAZHXChQLmo4WUPCgOl7-v/view)
+
+Presentation slides : [View in Microsoft Powerpoint for better visuals](https://drive.google.com/file/d/1_iZV4XGhf9DAZHXChQLmo4WUPCgOl7-v/view)
+
 **INSTRUCTIONS TO RUN/HOST THE APPLICATION**
 
 **On Windows:**
